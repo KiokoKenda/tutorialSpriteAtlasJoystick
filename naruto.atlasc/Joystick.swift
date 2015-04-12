@@ -38,18 +38,20 @@ class Joystick : SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         for touch in touches {
-            var touchPoint: CGPoint = touch.locationInNode(self)
+            let touch = touches.first as? UITouch
+            let touchPoint: CGPoint = touch!.locationInNode(self)
             if self.isTracking == false && CGRectContainsPoint(self.thumbNode.frame, touchPoint) {
                 self.isTracking = true
             }
         }
     }
     
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         for touch in touches {
-            var touchPoint: CGPoint = touch.locationInNode(self)
+            let touch = touches.first as? UITouch
+            let touchPoint: CGPoint = touch!.locationInNode(self)
 
             if self.isTracking == true && sqrtf(powf((Float(touchPoint.x) - Float(self.thumbNode.position.x)), 2) + powf((Float(touchPoint.y) - Float(self.thumbNode.position.y)), 2)) < Float(self.thumbNode.size.width) {
                 if sqrtf(powf((Float(touchPoint.x) - Float(self.anchorPointInPoints().x)), 2) + powf((Float(touchPoint.y) - Float(self.anchorPointInPoints().y)), 2)) <= Float(self.thumbNode.size.width) {
@@ -69,11 +71,11 @@ class Joystick : SKNode {
         }
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.resetVelocity()
     }
     
-    override func touchesCancelled(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
         self.resetVelocity()
     }
     

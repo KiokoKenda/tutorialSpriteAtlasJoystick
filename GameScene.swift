@@ -64,7 +64,7 @@ class GameScene: SKScene {
         // ripristino la direzione dx, uso animazione camminata
         let walkAndMoveRight = SKAction.group([resetDirection,  walkAnim, moveRight])
         // a sinistra, specchio la direzione
-        let walkAndMoveLeft  = SKAction.group([mirrorDirection, walkAnim, moveLeft]);
+        let walkAndMoveLeft  = SKAction.group([mirrorDirection, walkAnim, moveLeft])
         /////////////////////////////////////////////////////////////////////////////////////////
         
         // qui possiamo provare a definire azioni singole e multiple da assegnare al nostro personaggio
@@ -124,11 +124,11 @@ class GameScene: SKScene {
     // di toccare quell'oggetto, quindi, per mostrare questo, cambieremo le dimensioni
     // del pulsante quando premuto e lo ripristineremo a fine tocco verificandone la pressione
     // nel touchEnded():
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         // rileviamo il tocco
-        var touch: UITouch = touches.anyObject() as UITouch
+        let touch = touches.first as? UITouch
         // la posizione del tocco
-        var location = touch.locationInNode(self)
+        var location = touch!.locationInNode(self)
         // e l'eventuale bottone alla posizione del tocco
         var node = self.nodeAtPoint(location)
         
@@ -140,11 +140,11 @@ class GameScene: SKScene {
         
     }
 
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         // rileviamo il tocco
-        var touch: UITouch = touches.anyObject() as UITouch
+        let touch = touches.first as? UITouch
         // la posizione del tocco
-        var location = touch.locationInNode(self)
+        var location = touch!.locationInNode(self)
         // e l'eventuale bottone alla posizione del tocco
         var node = self.nodeAtPoint(location)
         
